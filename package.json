@@ -1,0 +1,35 @@
+{
+  "name": "autonomyai-playwright-typescript",
+  "version": "1.0.0",
+  "description": "A Playwright test automation project with TypeScript",
+  "main": "index.js",
+  "scripts": {
+    "run-test": "playwright test",
+    "run-test-chromium": "playwright test --project=chromium",
+    "debug-test-chromium": "PWDEBUG=1 playwright test --project=chromium",
+    "debug-test-firefox": "PWDEBUG=1 playwright test --project=firefox",
+    "debug-test-webkit": "PWDEBUG=1 playwright test --project=webkit",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint 'tests/**/*.ts'",
+    "check": "npm run typecheck && npm run lint",
+    "build": "npm run check && npm run test"
+  },
+  "keywords": [
+    "automation testing",
+    "playwright"
+  ],
+  "author": "Alex Dgebuadze",
+  "license": "ISC",
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.5",
+    "@playwright/test": "^1.40.0",
+    "@types/node": "^25.6.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "dotenv": "^17.4.2",
+    "eslint": "^8.57.0",
+    "eslint-plugin-playwright": "^0.21.0",
+    "prettier": "^3.0.0",
+    "typescript": "^5.0.0"
+  }
+}

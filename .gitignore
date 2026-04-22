@@ -1,0 +1,7 @@
+# Node modules
+node_modules/
+
+# Playwright artifacts
+test-results/
+test-results/
+trace/

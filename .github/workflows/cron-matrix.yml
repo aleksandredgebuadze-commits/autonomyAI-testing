@@ -1,0 +1,37 @@
+name: Tests Cron (Matrix)
+
+on:
+  #   schedule:
+  #     - cron: '0 0 * * *'
+  workflow_dispatch:
+
+env:
+  NODE_VERSION: "20"
+
+jobs:
+  test:
+    name: Run tests (${{ matrix.browser }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [ chromium, firefox, webkit ]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Playwright tests
+        run: npm run run-test -- --project=${{ matrix.browser }}
+        env:
+          TEST_EMAIL: ${{ secrets.TEST_EMAIL }}
+          TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
+          BASE_URL: https://studio.autonomyai.io
