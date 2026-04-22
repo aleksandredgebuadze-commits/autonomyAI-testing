@@ -21,12 +21,12 @@ This repository contains automated tests for the AutonomyAI platform using Playw
 ### Bug Tracker Application
 A stylish React application for browsing and filtering software bug reports. This application displays a collection of documented bugs with filtering capabilities by severity and search functionality.
 
-[View Bug Tracker README](../blob/main/bug-tracker/README.md)
+[View Bug Tracker README](../main/bug-tracker/README.md)
 
 ### Bug Documentation
 Detailed documentation of bugs discovered during testing, including steps to reproduce, expected vs actual behavior, and severity levels.
 
-[View BUGS.md](../blob/main/BUGS.md)
+[View BUGS.md](../main/BUGS.md)
 
 ### Roadmap
 Future plans and upcoming features for the testing framework and AutonomyAI platform.
