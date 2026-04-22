@@ -6,3 +6,4 @@ test-results/
 test-results/
 trace/
 playwright-report/
+.DS_Store
