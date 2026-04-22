@@ -1,9 +1,10 @@
-import { test, expect } from '../../fixtures';
+import { expect } from '@playwright/test';
+import { test } from '../../fixtures/login.fixture';
 
+test.describe('Full flow of task managment', () => {
+  test.describe.configure({ mode: 'serial' });
 
-test.describe.skip('Full flow of task managment', () => {
-  test('Add project in AutonomyAI studio', async ({ page ,mainPage }) => {
-    await mainPage.goto();
+  test('Add project in AutonomyAI studio', async ({ page ,loggedInPage ,mainPage }) => {
     await mainPage.clickSidebarDropdown();
     await mainPage.addProjectsWithName(
       [
@@ -13,20 +14,17 @@ test.describe.skip('Full flow of task managment', () => {
     );
   });
 
-  test('Create find task for a project', async ({ page, mainPage }) => {
-    await mainPage.goto();
+  test('Create find task for a project', async ({ page,loggedInPage, mainPage }) => {
     await mainPage.clickSidebarDropdown();
     await mainPage.selectProject("testRepo");
     await mainPage.setTaskType("Find");
-    await mainPage.SwitchToSmartModeButton.click();
     await mainPage.writeTaskDetailsAndSubmit("find component details which is responsible for list creation");
     await mainPage.TaskDescriptionDiv.waitFor({state: "visible"})
     await page.getByText("Detect Component").first().waitFor({ state: "attached", timeout: 60000 })
-    await mainPage.ToDoAppInputInIframe.waitFor({ state: "visible", timeout: 220000})
+    await mainPage.ToDoAppInputInIframe.waitFor({ state: "visible", timeout: 350000})
   });
 
-  test('Create Planing task for a project', async ({page, mainPage }) => {
-    await mainPage.goto();
+  test('Create Planing task for a project', async ({page,loggedInPage, mainPage }) => {
     await mainPage.clickSidebarDropdown();
     await mainPage.selectProject("testRepo");
     await mainPage.setTaskType("Plan");
@@ -34,16 +32,15 @@ test.describe.skip('Full flow of task managment', () => {
     await mainPage.writeTaskDetailsAndSubmit("add filtering option in todo list page. element should have clear structure and main elment should id='filterElem' ");
     await mainPage.TaskDescriptionDiv.waitFor({state: "visible"});
     await page.getByText("Planning").first().waitFor({ state: "attached", timeout: 60000 });
-    await mainPage.TaskSpecDoc.waitFor({ state: "attached", timeout: 220000 });
+    await mainPage.TaskSpecDoc.waitFor({ state: "attached", timeout: 350000 });
     await mainPage.TaskSpecDoc.click();
-    await mainPage.TaskSpecDetails.waitFor({ state: "attached", timeout: 220000 });
+    await mainPage.TaskSpecDetails.waitFor({ state: "attached", timeout: 350000 });
     expect(
       (await mainPage.TaskSpecDetails.innerText()).length
-    ).toBeGreaterThan(100)
+    ).toBeGreaterThan(100);
   });
 
-  test('Create Build task for a project', async ({page, mainPage }) => {
-    await mainPage.goto();
+  test('Create Build task for a project', async ({page,loggedInPage, mainPage }) => {
     await mainPage.clickSidebarDropdown();
     await mainPage.selectProject("testRepo");
     await mainPage.setTaskType("Build");
@@ -52,8 +49,8 @@ test.describe.skip('Full flow of task managment', () => {
     await mainPage.TaskDescriptionDiv.waitFor({state: "visible"})
     await page.getByText("Code Generation").waitFor({ state: "attached", timeout: 60000 })
     await mainPage.filterElemDivInIframe.waitFor({ state: "visible", timeout: 350000})
-    await mainPage.SendToDevsButton.waitFor({ state: "visible" })
-    await mainPage.SendToDevsButton.click({timeout: 250000 })
+    await mainPage.SendToDevsButton.waitFor({ state: "visible", timeout: 350000 })
+    await mainPage.SendToDevsButton.click({timeout: 350000 })
     await mainPage.SendToDevsConfirmButton.waitFor({ state: "visible" })
     await mainPage.SendToDevsConfirmButton.click()
     await mainPage.PreparingPRDialog.waitFor({ state: "visible" })
@@ -66,8 +63,7 @@ test.describe.skip('Full flow of task managment', () => {
     await mainPage.GithubPRDetailsElem.waitFor({ state: "visible" });
   });
 
-  test.only('remove projects from list', async ({ mainPage }) => {
-    await mainPage.goto();
+  test('Remove projects from list', async ({ mainPage,loggedInPage }) => {
     await mainPage.clickSidebarDropdown();
     await mainPage.removeProjectsWithName(
       [
