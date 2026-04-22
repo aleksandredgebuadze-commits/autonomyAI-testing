@@ -6,6 +6,18 @@ on:
       browser:
         description: "Browser to run tests on"
         required: false
+        type: choice
+        options:
+          - all
+          - chromium
+          - firefox
+          - webkit
+        default: "all"
+  workflow_call:
+    inputs:
+      browser:
+        description: "Browser to run tests on"
+        required: false
         type: string
         default: "all"
 
